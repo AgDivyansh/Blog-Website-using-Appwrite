@@ -10,7 +10,7 @@ export class AuthService {
             .setEndpoint(conf.appwriteUrl)
             .setProject(conf.appwriteProjectId)
 
-        const account = new Account(this.client);
+        this.account = new Account(this.client);
 
 
     }
@@ -60,7 +60,7 @@ export class AuthService {
             return await this.account.get();
         } catch (error) {
             // throw error
-            console.log("Appwrite service :: getCurrentUser :: error", error);
+            console.log("Appwrite service :: getCurrentUser :: error :", error);
 
         }
         return null ;
@@ -78,4 +78,4 @@ export class AuthService {
 
 const authService = new AuthService();
 
-export default service;
+export default authService;

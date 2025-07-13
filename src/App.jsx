@@ -1,19 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import authService from "./appwrite/auth";
+import "./App.css";
+import { login, logout } from "./store/authSlice";
+import { Footer, Header } from "./components";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
-  console.log(import.meta.env.VITE_APPWRITE_URL);
-  
+  // console.log(import.meta.env.VITE_APPWRITE_URL);
 
-  return (
-    <>
-      Blog website with appwrite
-    </>
-  )
+  const [loading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    authService
+      .getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(login(userData));
+        } else {
+          dispatch(logout());
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  // return <>Blog website with appwrite</>;
+  return !loading ? (
+    <div 
+    className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+      <div>
+      <Header />
+      <main>
+
+        {/* We need to Handel after sttting up the react router  */}
+        {/* ot after completing the routing */}
+        {/* <Outlet /> */}
+      </main>
+      <Footer />
+      </div>
+    </div>) 
+    : null;
 }
 
-export default App
+export default App;
