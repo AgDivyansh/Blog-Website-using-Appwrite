@@ -19,8 +19,8 @@ export class Service {
     async createPost({ title, slug, content, featuredImage, status, userId }) {
         try {
             return await this.databases.createDocument(
-                conf.appwriteDatanaseId,
-                conf.qppwriteCollectionId,
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
                 slug,
                 {
                     title,
@@ -31,6 +31,7 @@ export class Service {
                 }
             )
         } catch (error) {
+            console.log("Appwrite serive :: createPost :: error", error);
 
         }
     }
@@ -38,8 +39,8 @@ export class Service {
     async updatePost(slug, { title, content, featuredImage, status }) {
         try {
             return await this.databases.updateDocument(
-                conf.appwriteDatanaseId,
-                conf.qppwriteCollectionId,
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
                 slug,
                 {
                     title,
@@ -57,8 +58,8 @@ export class Service {
     async deletePost(slug) {
         try {
             await this.databases.deleteDocument(
-                conf.appwriteDatanaseId,
-                conf.qppwriteCollectionId,
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
                 slug
             )
             return true;
@@ -72,8 +73,8 @@ export class Service {
     async getPost(slug) {
         try {
             return await this.databases.getDocument(
-                conf.appwriteDatanaseId,
-                conf.qppwriteCollectionId,
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
                 slug
             )
         } catch (error) {
@@ -85,8 +86,8 @@ export class Service {
     async getPosts(queries = [Query.equal("status", "active")]) {
         try {
             return await this.databases.listDocuments(
-                conf.appwriteDatanaseId,
-                conf.qppwriteCollectionId,
+                conf.appwriteDatabaseId,
+                conf.appwriteCollectionId,
                 queries,
             )
         } catch (error) {
@@ -112,7 +113,7 @@ export class Service {
     }
     async deleteFile(fileId) {
         try {
-            return await this.bucket.deleteFile(
+            await this.bucket.deleteFile(
                 conf.appwriteBucketId,
                 fileId
             )
