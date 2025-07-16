@@ -25,7 +25,7 @@ function App() {
           dispatch(logout());
         }
       })
-      // if user is not logged in then in that conditon get current user fucntion does not works to handle that condition catch is required and in catch condition we can update the state as logout  
+      // if user is not logged in then in that conditon get current user fucntion does not works to handle that condition catch is required and in catch condition we can update the state as logout
       // .catch((error) => {
       //   console.log(`User not logged in yet `, error.message);
       //   dispatch(logout()) ;
@@ -37,20 +37,18 @@ function App() {
 
   // return <>Blog website with appwrite</>;
   return !loading ? (
-    <div 
-    className='min-h-screen flex flex-wrap content-between bg-gray-400'>
+    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
       <div>
-      <Header />
-      <main>
-
-        {/* We need to Handel after sttting up the react router  */}
-        {/* ot after completing the routing */}
-        {/* <Outlet /> */}
-      </main>
-      <Footer />
+        <Header />
+        <main>
+          {/* We need to Handel after sttting up the react router  */}
+          {/* ot after completing the routing */}
+          {/* <Outlet /> */}
+        </main>
+        <Footer />
       </div>
-    </div>) 
-    : null;
+    </div>
+  ) : null;
 }
 
 export default App;
