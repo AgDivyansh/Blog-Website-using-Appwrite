@@ -5,6 +5,7 @@ import authService from "./appwrite/auth";
 import "./App.css";
 import { login, logout } from "./store/authSlice";
 import { Footer, Header } from "./components";
+import { Outlet } from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -38,12 +39,15 @@ function App() {
   // return <>Blog website with appwrite</>;
   return !loading ? (
     <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
-      <div>
+      <div
+        className="w-full block"
+      >
         <Header />
         <main>
           {/* We need to Handel after sttting up the react router  */}
           {/* ot after completing the routing */}
           {/* <Outlet /> */}
+          ToDo: <Outlet />
         </main>
         <Footer />
       </div>
