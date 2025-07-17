@@ -26,7 +26,7 @@ function EditPost() {
     >
         <PostForm post={post} />
     </div>
-  ) : null 
+  ) : <div>Post not found.</div> 
 }
 
 export default EditPost;
