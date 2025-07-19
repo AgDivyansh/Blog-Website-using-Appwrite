@@ -18,7 +18,13 @@ function Signup() {
       const userData = await authService.createAccount(data);
       if (userData) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(login(userData));
+        if (userData) {
+          console.log(`Account creted details : `);
+          console.log(userData);
+          
+          
+          dispatch(login(userData));
+        }
         navigate("/");
       }
     } catch (error) {
@@ -49,8 +55,14 @@ function Signup() {
         </p>
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-        <form onSubmit={handleSubmit(create)}>
-          <div className="space-5">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            console.log(`Account create button is clicked`);
+            handleSubmit(create);
+          }}
+        >
+          <div className="space-y-5">
             <Input
               label="Full Name"
               placeholder="Enter your Full Name"

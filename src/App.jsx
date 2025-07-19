@@ -16,25 +16,53 @@ function App() {
 
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   authService
+  //     .getCurrentUser()
+  //     .then((userData) => {
+  //       if (userData) {
+  //         dispatch(login(userData));
+  //       } else {
+  //         dispatch(logout());
+  //       }
+  //     })
+  //     // if user is not logged in then in that conditon get current user fucntion does not works to handle that condition catch is required and in catch condition we can update the state as logout
+  //     // .catch((error) => {
+  //     //   console.log(`User not logged in yet `, error.message);
+  //     //   dispatch(logout()) ;
+  //     // })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+
+
   useEffect(() => {
-    authService
-      .getCurrentUser()
+    
+  const getUserData = async () => {
+    try {
+      const user = await authService.getCurrentUser()
       .then((userData) => {
-        if (userData) {
-          dispatch(login(userData));
-        } else {
-          dispatch(logout());
+        if (userData)
+        {
+          dispatch(login(userData)) ;
+        }
+        else{
+          dispatch(logout()) ;
         }
       })
-      // if user is not logged in then in that conditon get current user fucntion does not works to handle that condition catch is required and in catch condition we can update the state as logout
-      // .catch((error) => {
-      //   console.log(`User not logged in yet `, error.message);
-      //   dispatch(logout()) ;
-      // })
       .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+        setLoading(false) ;
+      })
+    } catch (error) {
+      console.log(`User not logged in, skipping getCurrentUser()`);
+      dispatch(logout()) ;
+    }
+  }
+    getUserData() ;
+  }, [])
+  
 
   // return <>Blog website with appwrite</>;
   return !loading ? (
