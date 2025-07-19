@@ -56,11 +56,9 @@ function Signup() {
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log(`Account create button is clicked`);
-            handleSubmit(create);
-          }}
+          onSubmit={
+            handleSubmit(create)
+          }
         >
           <div className="space-y-5">
             <Input

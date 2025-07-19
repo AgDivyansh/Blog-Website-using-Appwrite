@@ -1,23 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE } from "../index";
 import appwriteService from "../../appwrite/config";
 import { replace, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Select } from "../index";
 function PostForm({ post }) {
   const { register, handleSubmit, watch, setValue, control, getValues } =
     useForm({
-      title: post?.title || "",
-      slug: post?.slug || "",
-      content: post?.content || "",
-      status: post?.status || "",
+      defaultValues: {
+        title: post?.title || "",
+        slug: post?.slug || "",
+        content: post?.content || "",
+        status: post?.status || "",
+      },
     });
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state) => state.auth.userData);
   const submit = async (data) => {
     if (post) {
       const file = data.image[0]
-        ? appwriteService.uploadFile(data.image[0])
+        ? await appwriteService.uploadFile(data.image[0])
         : null;
 
       if (file) {
@@ -51,8 +54,8 @@ function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
-        .replace(/\s/g, "-");
+        .replace(/[^\w\s-]/g, "")   // remove non-word characters
+      .replace(/\s+/g, "-");      // replace spaces with hyphen
     }
     return "";
   }, []);
