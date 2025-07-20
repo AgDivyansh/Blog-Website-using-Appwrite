@@ -20,8 +20,8 @@ export default function PostForm({ post }) {
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
+    // if post is already available user is trying to edit the post or blog
     if (post) {
-      console.log('value of post is', post);
       
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])
@@ -39,12 +39,18 @@ export default function PostForm({ post }) {
       if (dbPost) {
         navigate(`/post/${dbPost.$id}`);
       }
-    } else {
+    } 
+    
+    else {
       const file = await appwriteService.uploadFile(data.image[0]);
-
+      // userData = file ;
       if (file) {
         const fileId = file.$id;
         console.log('value of file or $id is : ', fileId);
+        console.log('value of existing user : userData : ', userData);
+        console.log('new created blog detail are : ');
+        console.log(file);
+        
         
         data.featuredImage = fileId;
         const dbPost = await appwriteService.createPost({
@@ -82,7 +88,8 @@ export default function PostForm({ post }) {
   }, [watch, slugTransform, setValue]);
 
   return (
-    <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+    <form onSubmit={
+      handleSubmit(submit)} className="flex flex-wrap">
       <div className="w-2/3 px-2">
         <Input
           label="Title :"
