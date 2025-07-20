@@ -23,7 +23,7 @@ function Signup() {
           console.log(userData);
           
           
-          dispatch(login(userData));
+          dispatch(login({userData}));
         }
         navigate("/");
       }

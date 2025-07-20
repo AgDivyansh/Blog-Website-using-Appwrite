@@ -19,10 +19,10 @@ function AllPosts() {
           {post.map((post) => (
             <div
                 className = 'p-2 w-1/4'
+              key={post.$id} 
             >
               <PostCard 
-              key={post.$id} 
-              post={post} 
+              {...post} 
               />
             </div>
           ))}
