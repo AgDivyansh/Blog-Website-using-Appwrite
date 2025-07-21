@@ -75,7 +75,7 @@ function App() {
           {/* We need to Handel after sttting up the react router  */}
           {/* ot after completing the routing */}
           {/* <Outlet /> */}
-          ToDo: <Outlet />
+          Task: <Outlet />
         </main>
         <Footer />
       </div>
