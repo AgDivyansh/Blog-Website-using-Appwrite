@@ -9,6 +9,8 @@ function LogoutBtn() {
         authService.logout()
         .then(() => {
             dispatch(logout()) ;
+
+            window.location.reload() ;  // Refresh the whole website afer logout.
         })
     }
 
